@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ken William — Portfolio B3 WSM</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --cyan: #00D4FF;
+    --cyan-dim: rgba(0,212,255,0.12);
+    --cyan-border: rgba(0,212,255,0.25);
+    --white: #f0f0f5;
+    --grey: #8888aa;
+    --grey2: #444466;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  #cursor {
+    position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+    background: var(--cyan); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+  }
+  #cursor-halo {
+    position: fixed; top: 0; left: 0; width: 40px; height: 40px;
+    border: 1px solid var(--cyan-border); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s ease, width 0.2s, height 0.2s, border-color 0.2s;
+  }
+  body:hover #cursor-halo { border-color: var(--cyan); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--grey2);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 1.1rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--cyan); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--grey); font-size: 0.85rem; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 40px 80px;
+    max-width: 1100px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--cyan-dim); border: 1px solid var(--cyan-border);
+    color: var(--cyan); font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 700; line-height: 1.05;
+    letter-spacing: -2px;
+    opacity: 0; animation: fadeUp 0.6s ease 0.35s forwards;
+  }
+  .hero-title .cyan { color: var(--cyan); }
+  .hero-subtitle {
+    margin-top: 24px; max-width: 560px;
+    font-size: 1.1rem; color: var(--grey); font-weight: 300;
+    opacity: 0; animation: fadeUp 0.6s ease 0.5s forwards;
+  }
+  .hero-cta {
+    margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s ease 0.65s forwards;
+  }
+  .btn-primary {
+    background: var(--cyan); color: #000;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 0.85rem; letter-spacing: 0.5px;
+    padding: 14px 28px; border-radius: 6px;
+    text-decoration: none; border: none; cursor: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 0.85rem; letter-spacing: 0.5px;
+    padding: 14px 28px; border-radius: 6px;
+    text-decoration: none; border: 1px solid var(--grey2); cursor: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 40px;
+    display: flex; align-items: center; gap: 12px;
+    color: var(--grey); font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase;
+    opacity: 0; animation: fadeUp 0.6s ease 0.8s forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--grey);
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 40px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    color: var(--cyan); font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700; letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .section-desc {
+    color: var(--grey); max-width: 600px;
+    font-size: 1rem; font-weight: 300;
+    margin-bottom: 60px;
+  }
+
+  /* BIOGRAPHIE */
+  #bio { background: var(--bg2); }
+  .bio-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: start;
+  }
+  .bio-text p { color: var(--grey); margin-bottom: 20px; font-weight: 300; }
+  .bio-text p strong { color: var(--white); font-weight: 500; }
+  .bio-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .stat-card {
+    background: var(--bg3); border: 1px solid var(--grey2);
+    border-radius: 8px; padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .stat-card:hover { border-color: var(--cyan-border); }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2rem; font-weight: 700; color: var(--cyan);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--grey); margin-top: 6px; }
+
+  /* RÉALISATIONS - TABS */
+  #realisations { background: var(--bg); }
+  .tabs {
+    display: flex; gap: 0; margin-bottom: 50px;
+    border-bottom: 1px solid var(--grey2);
+  }
+  .tab-btn {
+    background: none; border: none; color: var(--grey);
+    font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+    padding: 14px 28px; cursor: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+  .tab-btn:hover { color: var(--white); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* MISSION CARD */
+  .mission-header {
+    background: var(--bg3); border: 1px solid var(--grey2);
+    border-radius: 12px; padding: 36px; margin-bottom: 36px;
+  }
+  .mission-tag {
+    display: inline-block;
+    background: var(--cyan-dim); border: 1px solid var(--cyan-border);
+    color: var(--cyan); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+  }
+  .mission-title {
+    font-family: var(--font-display); font-size: 1.5rem;
+    font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px;
+  }
+  .mission-meta {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    color: var(--grey); font-size: 0.85rem;
+  }
+  .mission-meta span { display: flex; align-items: center; gap: 6px; }
+
+  .competence-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; margin-bottom: 36px;
+  }
+  .comp-card {
+    background: var(--bg3); border: 1px solid var(--grey2);
+    border-radius: 10px; padding: 28px;
+    transition: border-color 0.25s, transform 0.2s;
+    opacity: 0; transform: translateY(20px);
+  }
+  .comp-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s; }
+  .comp-card:hover { border-color: var(--cyan-border); transform: translateY(-3px); }
+  .comp-tag {
+    color: var(--cyan); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .comp-card h4 {
+    font-family: var(--font-display); font-size: 1rem;
+    font-weight: 600; margin-bottom: 12px; letter-spacing: -0.3px;
+  }
+  .comp-card p { color: var(--grey); font-size: 0.88rem; font-weight: 300; line-height: 1.65; }
+
+  .result-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px; margin: 36px 0;
+  }
+  .result-item {
+    background: var(--cyan-dim); border: 1px solid var(--cyan-border);
+    border-radius: 8px; padding: 20px; text-align: center;
+  }
+  .result-item .num {
+    font-family: var(--font-display); font-size: 1.8rem;
+    font-weight: 700; color: var(--cyan);
+  }
+  .result-item .lbl { font-size: 0.78rem; color: var(--grey); margin-top: 4px; }
+
+  /* COMPÉTENCES */
+  #competences { background: var(--bg2); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .skill-row { margin-bottom: 18px; }
+  .skill-name {
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem; font-weight: 500; margin-bottom: 8px;
+  }
+  .skill-pct { color: var(--cyan); }
+  .skill-bar {
+    height: 3px; background: var(--grey2); border-radius: 3px; overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%; background: var(--cyan); border-radius: 3px;
+    width: 0; transition: width 1s ease;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--bg); text-align: center; }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-inner .section-title { font-size: clamp(2rem, 4vw, 3rem); }
+  .contact-email {
+    display: inline-block; margin: 32px 0;
+    font-family: var(--font-display); font-size: 1.2rem;
+    color: var(--cyan); text-decoration: none;
+    border-bottom: 1px solid var(--cyan-border);
+    padding-bottom: 4px;
+    transition: border-color 0.2s;
+  }
+  .contact-email:hover { border-color: var(--cyan); }
+  .contact-links {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .contact-link {
+    background: var(--bg3); border: 1px solid var(--grey2);
+    color: var(--white); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
+    padding: 12px 24px; border-radius: 6px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2); border-top: 1px solid var(--grey2);
+    padding: 28px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  footer p { color: var(--grey); font-size: 0.8rem; }
+  footer span { color: var(--cyan); }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px; height: 2px; background: var(--cyan);
+    margin-bottom: 40px;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 6px; bottom: 0;
+    width: 1px; background: var(--grey2);
+  }
+  .tl-item { position: relative; margin-bottom: 28px; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -32px; top: 6px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cyan); border: 2px solid var(--bg2);
+  }
+  .tl-date { color: var(--cyan); font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .tl-text { color: var(--grey); font-size: 0.9rem; }
+  .tl-text strong { color: var(--white); }
+
+  /* PERSONA CARD */
+  .persona-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; margin-bottom: 36px;
+  }
+  .persona-card {
+    background: var(--bg3); border: 1px solid var(--grey2);
+    border-radius: 10px; padding: 28px;
+    transition: border-color 0.25s;
+  }
+  .persona-card:hover { border-color: var(--cyan-border); }
+  .persona-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--cyan-dim); border: 1px solid var(--cyan-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 16px;
+  }
+  .persona-name {
+    font-family: var(--font-display); font-weight: 600; font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  .persona-role { color: var(--cyan); font-size: 0.78rem; font-weight: 500; margin-bottom: 14px; }
+  .persona-details { color: var(--grey); font-size: 0.83rem; line-height: 1.65; }
+  .persona-details strong { color: var(--white); font-weight: 500; }
+
+  /* BUDGET TABLE */
+  .budget-table {
+    width: 100%; border-collapse: collapse; margin-top: 20px;
+    font-size: 0.87rem;
+  }
+  .budget-table th {
+    text-align: left; padding: 12px 16px;
+    color: var(--cyan); font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase;
+    border-bottom: 1px solid var(--grey2);
+  }
+  .budget-table td {
+    padding: 14px 16px; color: var(--grey);
+    border-bottom: 1px solid rgba(68,68,102,0.3);
+  }
+  .budget-table td:first-child { color: var(--white); font-weight: 500; }
+  .budget-table tr:last-child td {
+    border-bottom: none; color: var(--cyan); font-weight: 600;
+  }
+  .budget-table tr:hover td { background: rgba(0,212,255,0.03); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--grey2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    section { padding: 70px 20px; }
+    #hero { padding: 100px 20px 60px; }
+    .bio-grid { grid-template-columns: 1fr; }
+    .hero-scroll { display: none; }
+    footer { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-halo"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Ken<span>.</span>William</a>
+  <ul class="nav-links">
+    <li><a href="#bio">Biographie</a></li>
+    <li><a href="#realisations">Réalisations</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">Portfolio B3 Webmarketing &amp; Social Media — 2026</div>
+  <h1 class="hero-title">
+    Ken William<br>
+    <span class="cyan">Ezome Bomba</span>
+  </h1>
+  <p class="hero-subtitle">
+    Étudiant en Bachelor Webmarketing &amp; Social Media à MyDigitalSchool Lille.
+    Passionné par la stratégie digitale, la communication 360° et la prospection B2B.
+  </p>
+  <div class="hero-cta">
+    <a href="#realisations" class="btn-primary">Voir mes réalisations</a>
+    <a href="#contact" class="btn-secondary">Me contacter</a>
+  </div>
+  <div class="hero-photo" style="position:absolute;right:0;top:50%;transform:translateY(-50%);width:420px;height:580px;overflow:hidden;pointer-events:none;">
+    
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll pour explorer
+  </div>
+
+</section>
+
+<!-- BIOGRAPHIE -->
+<section id="bio">
+  <div class="container">
+    <p class="section-label">Qui suis-je</p>
+    <h2 class="section-title fade-in">Mon parcours</h2>
+    <div class="divider"></div>
+    <div class="bio-grid">
+      <div class="bio-text fade-in">
+        <p>
+          Je m'appelle <strong>Ken William Ezome Bomba</strong>. Depuis le lycée, j'ai toujours été attiré par deux choses en apparence opposées : <strong>les chiffres et les mots</strong>. Comprendre pourquoi les gens achètent, ce qui les convainc, comment un message peut transformer une décision — c'est ce qui m'a naturellement orienté vers le marketing digital.
+        </p>
+        <p>
+          En intégrant MyDigitalSchool Lille, j'ai voulu donner une forme concrète à cette curiosité. L'alternance et le stage sont pour moi des espaces où la théorie se teste vraiment — où l'on comprend pourquoi une stratégie fonctionne ou non, pas seulement ce qu'elle est censée faire.
+        </p>
+        <p>
+          Mon stage de fin d'études chez <strong>BVCTS / Groupe Protec Structure</strong> (7 avril – 26 juin 2026) et en parallèle pour la startup <strong>QareData</strong> m'a confronté à deux réalités très différentes du marketing B2B : la communication institutionnelle à grande échelle d'un côté, et la prospection commerciale ultra-ciblée d'une PropTech de l'autre.
+        </p>
+        <p>
+          Ce que j'ai appris : <strong>une bonne stratégie n'est jamais générique</strong>. Elle naît d'une compréhension précise du marché, des cibles et des ressources disponibles. C'est cette conviction qui oriente mon projet professionnel.
+        </p>
+
+        <div class="timeline" style="margin-top:40px;">
+          <div class="tl-item">
+            <div class="tl-date">2023 — 2026</div>
+            <div class="tl-text"><strong>Bachelor Webmarketing &amp; Social Media</strong> — MyDigitalSchool Lille</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">Avr — Juin 2026</div>
+            <div class="tl-text"><strong>Stage — BVCTS / Groupe Protec Structure &amp; QareData</strong> — Rebranding, stratégie 360°, prospection LinkedIn B2B</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">2026 →</div>
+            <div class="tl-text"><strong>Projet professionnel</strong> — Responsable Marketing Digital / Consultant en stratégie digitale B2B</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bio-stats fade-in">
+        <div class="stat-card">
+          <div class="stat-number">6</div>
+          <div class="stat-label">Entités couvertes — Groupe Protec Structure</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Canaux digitaux gérés simultanément</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">80+</div>
+          <div class="stat-label">Prospects qualifiés configurés sur Waalaxy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Missions menées en parallèle</div>
+        </div>
+
+      </div>
+                <div class="stat-card" style="grid-column: span 2;">
+          <div class="stat-number" style="font-size:1.4rem;">24/30</div>
+          <div class="stat-label">Note tuteur entreprise — Adrien Caron, Directeur Général<br><span style="color:var(--white);font-size:0.82rem;margin-top:8px;display:block;">"Ken a su s'adapter rapidement aux enjeux de l'entreprise et proposer des initiatives pertinentes sur nos différents canaux de communication."</span></div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
+<section id="realisations">
+  <div class="container">
+    <p class="section-label">Expériences</p>
+    <h2 class="section-title fade-in">Mes réalisations</h2>
+    <div class="divider"></div>
+    <p class="section-desc fade-in">Deux missions menées simultanément lors de mon stage (avril – juin 2026), dans deux contextes B2B très différents.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="bvcts">Mission 1 — BVCTS</button>
+      <button class="tab-btn" data-tab="qaredata">Mission 2 — QareData</button>
+    </div>
+
+    <!-- TAB BVCTS -->
+    <div class="tab-panel active" id="tab-bvcts">
+
+      <div class="mission-header fade-in">
+        <div class="mission-tag">Rebranding &amp; Communication 360°</div>
+        <h3 class="mission-title">Stratégie de communication multicanale — Groupe Protec Structure</h3>
+        <div class="mission-meta">
+          <span>📅 Avril – Juin 2026</span>
+          <span>🏢 BVCTS / Groupe Protec Structure — Lille</span>
+          <span>👤 Tuteur : Adrien Caron, DG</span>
+          <span>🎯 B2B — 6 entités, 5 canaux digitaux</span>
+        </div>
+      </div>
+
+      <!-- C1 VEILLE -->
+      <div class="fade-in" style="margin-bottom:20px;">
+        <div class="comp-tag">C1 — Veille sectorielle &amp; concurrentielle</div>
+      </div>
+      <div class="competence-grid">
+        <div class="comp-card">
+          <div class="comp-tag">Contexte &amp; enjeux</div>
+          <h4>Un groupe multi-entités sans identité unifiée</h4>
+          <p>Le Groupe Protec Structure regroupe 6 entités (BVCTS, Barnum France, Parc Events, Podium Events, Structure Design, Barnum Invest) sans ligne de communication commune. Ma mission : comprendre l'écosystème, identifier les concurrents clés et les tendances du secteur événementiel BtoB pour poser les bases d'une stratégie cohérente.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Démarche</div>
+          <h4>Veille structurée multi-sources</h4>
+          <p>J'ai mis en place une veille sectorielle en analysant les acteurs du marché de la structure événementielle et du patrimoine immobilier. J'ai utilisé des sources online (sites concurrents, LinkedIn, Google Alerts) et offline (salons professionnels, presse spécialisée BTP/événementiel) pour cartographier les tendances et identifier les positionnements différenciants disponibles.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Résultats</div>
+          <h4>Tendances clés identifiées</h4>
+          <p>J'ai identifié 3 tendances majeures : la montée de la communication RSE dans l'événementiel, la digitalisation des catalogues de services, et le besoin de réassurance visuelle pour les collectivités et gestionnaires patrimoniaux. Ces insights ont directement alimenté la stratégie éditoriale que j'ai construite.</p>
+        </div>
+      </div>
+
+      <!-- C2 ÉTUDE DE MARCHÉ -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C2 — Étude de marché</div>
+      </div>
+      <div class="competence-grid">
+        <div class="comp-card">
+          <div class="comp-tag">Méthode</div>
+          <h4>Diagnostic marché structuré</h4>
+          <p>J'ai réalisé un diagnostic du marché en croisant une analyse SWOT de chaque entité du groupe, un mapping concurrentiel et l'analyse des retours clients existants. J'ai aussi étudié les comportements digitaux des cibles potentielles pour évaluer leur présence et leurs attentes en ligne.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Segments identifiés</div>
+          <h4>3 cibles BtoB prioritaires</h4>
+          <p>L'étude m'a permis d'identifier et confirmer 3 segments : <strong>les organisateurs d'événements</strong> (recherchent fiabilité et réactivité), <strong>les collectivités</strong> (sensibles à la RSE et à la référence institutionnelle), et <strong>les gestionnaires de patrimoine immobilier</strong> (attentifs à la technicité et aux garanties). Ces segments ont orienté toute la stratégie de contenu.</p>
+        </div>
+      </div>
+
+      <!-- C3 PERSONAS -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C3 — Personas</div>
+      </div>
+      <div class="persona-grid">
+        <div class="persona-card">
+          <div class="persona-avatar">🎪</div>
+          <div class="persona-name">Thomas, 38 ans</div>
+          <div class="persona-role">Organisateur d'événements — BtoB</div>
+          <div class="persona-details">
+            <strong>Contexte :</strong> Directeur d'agence événementielle, organise 15-20 événements/an. Cherche des partenaires fiables avec délais courts.<br><br>
+            <strong>Frustrations :</strong> Manque de réactivité des prestataires, devis opaques, absence de visuels 3D.<br><br>
+            <strong>Attentes :</strong> Portfolio visuel, témoignages clients, contact direct rapide.
+          </div>
+        </div>
+        <div class="persona-card">
+          <div class="persona-avatar">🏛️</div>
+          <div class="persona-name">Marie, 45 ans</div>
+          <div class="persona-role">Chargée de mission — Collectivité</div>
+          <div class="persona-details">
+            <strong>Contexte :</strong> Responsable projets urbains dans une mairie. Décide des prestataires pour événements publics et aménagements temporaires.<br><br>
+            <strong>Frustrations :</strong> Manque de références institutionnelles, engagements RSE flous.<br><br>
+            <strong>Attentes :</strong> Certifications, références publiques, transparence sur l'impact environnemental.
+          </div>
+        </div>
+        <div class="persona-card">
+          <div class="persona-avatar">🏗️</div>
+          <div class="persona-name">Frédéric, 52 ans</div>
+          <div class="persona-role">Gestionnaire patrimoine immobilier</div>
+          <div class="persona-details">
+            <strong>Contexte :</strong> Directeur technique d'une foncière, gère 80+ bâtiments. Recherche des solutions structurelles fiables.<br><br>
+            <strong>Frustrations :</strong> Manque de détails techniques, difficultés à évaluer le rapport qualité/prix.<br><br>
+            <strong>Attentes :</strong> Fiches techniques détaillées, garanties, interlocuteur unique.
+          </div>
+        </div>
+      </div>
+
+      <!-- C4 STRATÉGIE -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C4 — Stratégie marketing &amp; communication</div>
+      </div>
+      <div class="competence-grid">
+        <div class="comp-card">
+          <div class="comp-tag">Objectifs SMART</div>
+          <h4>Stratégie de rebranding 360°</h4>
+          <p>J'ai défini une stratégie visant à <strong>unifier l'image des 6 entités</strong> tout en préservant leur spécificité. Objectifs : +30% de visibilité LinkedIn en 3 mois, refonte des assets visuels, création d'une charte graphique commune, et harmonisation des messages sur 5 canaux (site web, LinkedIn, Instagram, Google My Business, email).</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Actions</div>
+          <h4>Plan d'action multicanal</h4>
+          <p>J'ai élaboré un plan d'action couvrant : refonte des visuels LinkedIn pour chaque entité, création de modèles de publications, rédaction de contenus adaptés par segment, mise à jour des fiches Google My Business, et définition d'un calendrier éditorial mensuel. Chaque action était rattachée à une cible et un objectif mesurable.</p>
+        </div>
+      </div>
+
+      <!-- C5 PLAN D'ACTION / C6 LIGNE ÉDO -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C5 &amp; C6 — Plan d'action &amp; Ligne éditoriale</div>
+      </div>
+      <div class="competence-grid">
+        <div class="comp-card">
+          <div class="comp-tag">Mix marketing</div>
+          <h4>5 canaux, 3 tonalités</h4>
+          <p>J'ai défini un mix éditorial adapté à chaque canal : <strong>LinkedIn</strong> (expertise, références chantiers, B2B), <strong>Instagram</strong> (storytelling visuel, coulisses montage), <strong>Google My Business</strong> (SEO local, avis clients), <strong>site web</strong> (SEO, pages services), <strong>email</strong> (relance prospects et fidélisation). Chaque tonalité était calibrée selon la cible et le niveau de maturité dans le parcours d'achat.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Ligne éditoriale</div>
+          <h4>3 piliers de contenu</h4>
+          <p>J'ai construit une ligne éditoriale autour de 3 piliers : <strong>Expertise &amp; technicité</strong> (montrer le savoir-faire), <strong>Références &amp; preuves</strong> (rassurer par les réalisations), <strong>Valeurs &amp; RSE</strong> (ancrer la légitimité institutionnelle). Fréquence : 3 publications/semaine sur LinkedIn, 2 sur Instagram. Chaque pilier alimentait les 3 segments cibles identifiés.</p>
+        </div>
+      </div>
+
+      <!-- C7 BUDGET -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C7 — Budget</div>
+      </div>
+      <div class="comp-card fade-in" style="max-width:700px;">
+        <div class="comp-tag">Estimation budgétaire — Communication BVCTS</div>
+        <h4>Budget annuel estimé (ressources internes + prestataires)</h4>
+        <table class="budget-table">
+          <thead>
+            <tr><th>Poste de dépense</th><th>Type</th><th>Estimation</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Refonte assets visuels (charte, gabarits)</td><td>Interne / prestataire</td><td>800 – 1 500 €</td></tr>
+            <tr><td>Production contenus LinkedIn / Instagram</td><td>Interne (stagiaire)</td><td>0 € (inclus stage)</td></tr>
+            <tr><td>Mise à jour site web &amp; SEO</td><td>Prestataire web</td><td>500 – 1 000 €</td></tr>
+            <tr><td>Publicité LinkedIn Ads (campagne test)</td><td>Paid media</td><td>300 – 600 €</td></tr>
+            <tr><td>Outil de planification (Buffer / Canva Pro)</td><td>SaaS</td><td>120 – 240 €/an</td></tr>
+            <tr><td><strong>Total estimé</strong></td><td></td><td><strong>1 720 – 3 340 €</strong></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:16px; font-size:0.8rem; color:var(--grey);">Budget construit en l'absence de budget communication formellement défini par la direction — estimation réaliste basée sur les ressources internes disponibles et les priorités identifiées.</p>
+      </div>
+
+      <div class="result-grid fade-in" style="margin-top:40px;">
+        <div class="result-item"><div class="num">6</div><div class="lbl">Entités harmonisées</div></div>
+        <div class="result-item"><div class="num">5</div><div class="lbl">Canaux couverts</div></div>
+        <div class="result-item"><div class="num">3</div><div class="lbl">Personas construits</div></div>
+        <div class="result-item"><div class="num">3</div><div class="lbl">Piliers éditoriaux définis</div></div>
+      </div>
+    </div>
+
+    <!-- TAB QAREDATA -->
+    <div class="tab-panel" id="tab-qaredata">
+
+      <div class="mission-header fade-in">
+        <div class="mission-tag">Prospection B2B — PropTech / SaaS</div>
+        <h3 class="mission-title">Campagne de prospection LinkedIn — QareData</h3>
+        <div class="mission-meta">
+          <span>📅 Avril – Juin 2026</span>
+          <span>🏢 QareData — Startup PropTech</span>
+          <span>👤 PDG : Jérémy Giacomini</span>
+          <span>🎯 Syndics BtoB — 30+ copropriétés</span>
+        </div>
+      </div>
+
+      <!-- C1 VEILLE -->
+      <div class="fade-in" style="margin-bottom:20px;">
+        <div class="comp-tag">C1 — Veille sectorielle &amp; concurrentielle</div>
+      </div>
+      <div class="competence-grid">
+        <div class="comp-card">
+          <div class="comp-tag">Contexte</div>
+          <h4>Un marché PropTech ultra-segmenté</h4>
+          <p>QareData est une startup PropTech proposant un outil SaaS de gestion de données pour les syndics de copropriétés. La veille m'a permis d'analyser le paysage concurrentiel (autres solutions SaaS de gestion syndic), les dynamiques du marché (digitalisation forcée post-Covid, réglementations copropriété) et les comportements de la cible sur LinkedIn.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Insights clés</div>
+          <h4>Les grands groupes sont hors scope</h4>
+          <p>La veille a confirmé un insight stratégique crucial : les grands groupes nationaux (Foncia, Nexity, Vilogia, Citya) ont des cycles de vente incompatibles avec une startup. J'ai donc orienté toute la prospection vers les <strong>syndics indépendants gérant 30+ copropriétés</strong> — profil idéal pour QareData : taille suffisante pour justifier l'outil, mais agile pour décider rapidement.</p>
+        </div>
+      </div>
+
+      <!-- C2 ÉTUDE DE MARCHÉ -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C2 — Étude de marché &amp; qualification</div>
+      </div>
+      <div class="competence-grid">
+        <div class="comp-card">
+          <div class="comp-tag">Méthode de qualification</div>
+          <h4>Critères de sélection des prospects</h4>
+          <p>J'ai défini un cadre de qualification strict : syndic indépendant, 30+ copropriétés en gestion, présence LinkedIn active, localisation géographique pertinente (bassin d'activité de QareData), et signal d'intérêt pour la digitalisation (publications, commentaires thématiques). Ce filtre a permis de ne cibler que des prospects à fort potentiel de conversion.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Exclusions volontaires</div>
+          <h4>Foncia, Nexity, Vilogia, Citya — Hors scope</h4>
+          <p>Une décision stratégique majeure que j'ai prise avec la direction : <strong>exclure délibérément les grands groupes nationaux</strong>. Raison : leurs cycles de vente (12-18 mois, comités d'achat complexes) sont incompatibles avec les ressources d'une startup en phase d'amorçage. Cette exclusion a permis de concentrer l'énergie là où la conversion est réaliste à court terme.</p>
+        </div>
+      </div>
+
+      <!-- C3 PERSONAS -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C3 — Persona cible</div>
+      </div>
+      <div class="persona-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        <div class="persona-card">
+          <div class="persona-avatar">🏢</div>
+          <div class="persona-name">Olivier, 44 ans</div>
+          <div class="persona-role">Directeur de cabinet syndic indépendant</div>
+          <div class="persona-details">
+            <strong>Portefeuille :</strong> 35 à 60 copropriétés. 8-15 collaborateurs.<br><br>
+            <strong>Contexte :</strong> Sous pression réglementaire (loi ELAN, dématérialisation). Cherche à gagner du temps sur la gestion des données.<br><br>
+            <strong>Frustrations :</strong> Données éparpillées, pas de vision consolidée, outils vieillissants.<br><br>
+            <strong>Attentes vis-à-vis de QareData :</strong> ROI rapide démontrable, prise en main simple, accompagnement à l'onboarding.<br><br>
+            <strong>Comportement LinkedIn :</strong> Actif sur des sujets réglementaires, réceptif aux contenus éducatifs sur la PropTech.
+          </div>
+        </div>
+        <div class="persona-card">
+          <div class="persona-avatar">📊</div>
+          <div class="persona-name">Stéphanie, 38 ans</div>
+          <div class="persona-role">Responsable opérations — Cabinet syndic</div>
+          <div class="persona-details">
+            <strong>Portefeuille :</strong> 30 à 50 copropriétés. Décideuse terrain.<br><br>
+            <strong>Contexte :</strong> Gère les relations avec les prestataires tech. Influence fortement les décisions d'achat logiciel.<br><br>
+            <strong>Frustrations :</strong> Perte de temps sur les reportings manuels, manque de fiabilité des données.<br><br>
+            <strong>Attentes :</strong> Démo concrète, intégration facile avec les outils existants, support réactif.<br><br>
+            <strong>Comportement LinkedIn :</strong> Lit des contenus sur la productivité et les outils SaaS. Participe à des groupes proptech.
+          </div>
+        </div>
+      </div>
+
+      <!-- C4-C5-C6 -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C4 / C5 / C6 — Stratégie, plan d'action &amp; ligne éditoriale</div>
+      </div>
+      <div class="competence-grid">
+        <div class="comp-card">
+          <div class="comp-tag">Outil : Waalaxy</div>
+          <h4>Configuration de la campagne LinkedIn</h4>
+          <p>J'ai configuré une campagne de prospection automatisée sur <strong>Waalaxy</strong> : définition des séquences de messages (invitation + 2 relances espacées de 5 jours), paramétrage des filtres de recherche LinkedIn Sales Navigator, rédaction des scripts de messages personnalisés par persona. La campagne ciblait 80+ prospects qualifiés et était prête au lancement à la fin du stage.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Ligne éditoriale LinkedIn</div>
+          <h4>3 messages, 1 promesse</h4>
+          <p>J'ai défini une ligne de messages centrée sur 3 angles : <strong>la douleur terrain</strong> (perte de temps sur les données), <strong>la preuve</strong> (cas concrets de gains de productivité), <strong>l'invitation à la conversation</strong> (pas de pitch immédiat — approche consultative). La promesse : "Vous gérez des copropriétés, pas des fichiers Excel." Ton : direct, professionnel, sans jargon tech.</p>
+        </div>
+        <div class="comp-card">
+          <div class="comp-tag">Stratégie</div>
+          <h4>Approche en entonnoir LinkedIn</h4>
+          <p>La stratégie adoptée suit un entonnoir en 3 phases : <strong>Sensibilisation</strong> (partage de contenu éducatif sur la PropTech), <strong>Connexion</strong> (invitation personnalisée avec accroche ciblée), <strong>Conversion</strong> (proposition de démo 20 min sans engagement). Chaque étape était conçue pour minimiser la friction et maximiser le taux de réponse.</p>
+        </div>
+      </div>
+
+      <!-- C7 BUDGET -->
+      <div class="fade-in" style="margin-bottom:20px; margin-top:16px;">
+        <div class="comp-tag">C7 — Budget</div>
+      </div>
+      <div class="comp-card fade-in" style="max-width:700px;">
+        <div class="comp-tag">Budget campagne prospection — QareData</div>
+        <h4>Investissements pour la campagne LinkedIn</h4>
+        <table class="budget-table">
+          <thead>
+            <tr><th>Poste de dépense</th><th>Type</th><th>Estimation</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Waalaxy (abonnement Business)</td><td>SaaS prospection</td><td>~80 €/mois</td></tr>
+            <tr><td>LinkedIn Sales Navigator</td><td>SaaS ciblage</td><td>~80 €/mois</td></tr>
+            <tr><td>Rédaction scripts &amp; séquences</td><td>Interne (stagiaire)</td><td>0 € (inclus stage)</td></tr>
+            <tr><td>Création visuels support (Canva)</td><td>Interne</td><td>0 – 15 €/mois</td></tr>
+            <tr><td>CRM de suivi (notion/HubSpot free)</td><td>SaaS</td><td>0 €</td></tr>
+            <tr><td><strong>Total mensuel</strong></td><td></td><td><strong>~160 – 175 €/mois</strong></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:16px; font-size:0.8rem; color:var(--grey);">Budget optimisé pour une startup en phase d'amorçage. La campagne n'ayant pas encore été lancée à la fin du stage, ces estimations constituent le cadrage budgétaire recommandé pour la phase de go-live.</p>
+      </div>
+
+      <div class="result-grid fade-in" style="margin-top:40px;">
+        <div class="result-item"><div class="num">80+</div><div class="lbl">Prospects qualifiés</div></div>
+        <div class="result-item"><div class="num">30+</div><div class="lbl">Copropriétés min. par cible</div></div>
+        <div class="result-item"><div class="num">4</div><div class="lbl">Grands groupes exclus (stratégie)</div></div>
+        <div class="result-item"><div class="num">3</div><div class="lbl">Séquences Waalaxy configurées</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+  <div class="container">
+    <p class="section-label">Savoir-faire</p>
+    <h2 class="section-title fade-in">Compétences clés</h2>
+    <div class="divider"></div>
+    <div class="skills-grid fade-in">
+      <div>
+        <h4 style="font-family:var(--font-display); margin-bottom:24px; color:var(--grey); font-size:0.8rem; letter-spacing:1px; text-transform:uppercase;">Stratégie &amp; Marketing</h4>
+        <div class="skill-row">
+          <div class="skill-name"><span>Stratégie de communication</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="88"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Étude de marché &amp; veille</span><span class="skill-pct">82%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="82"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Construction de personas</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Ligne éditoriale &amp; contenu</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="90"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Budgétisation marketing</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="75"></div></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-display); margin-bottom:24px; color:var(--grey); font-size:0.8rem; letter-spacing:1px; text-transform:uppercase;">Digital &amp; Outils</h4>
+        <div class="skill-row">
+          <div class="skill-name"><span>LinkedIn &amp; Social Media B2B</span><span class="skill-pct">92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="92"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Waalaxy (prospection auto)</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Canva &amp; création visuelle</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="88"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Google My Business &amp; SEO local</span><span class="skill-pct">78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="78"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name"><span>Email marketing</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-pct="80"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <p class="section-label">Travaillons ensemble</p>
+      <h2 class="section-title fade-in">Vous avez un<br><span style="color:var(--cyan)">projet ?</span></h2>
+      <div class="divider" style="margin:24px auto;"></div>
+      <p class="fade-in" style="color:var(--grey); margin-bottom:8px;">Je suis disponible pour des opportunités en marketing digital, stratégie de communication ou prospection B2B.</p>
+      <a href="mailto:ken.william@mydigitalschool.com" class="contact-email">ken.william@mydigitalschool.com</a>
+      <div class="contact-links fade-in">
+        <a href="https://www.linkedin.com/in/" class="contact-link">LinkedIn</a>
+        <a href="#" class="contact-link">CV PDF</a>
+        <a href="#realisations" class="contact-link">Voir mes réalisations</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Ken William Ezome Bomba</span> — Portfolio B3 WSM DIG</p>
+  <p>MyDigitalSchool Lille — <span>RNCP Niveau 6</span></p>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const halo = document.getElementById('cursor-halo');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+    setTimeout(() => {
+      halo.style.left = e.clientX + 'px';
+      halo.style.top  = e.clientY + 'px';
+    }, 60);
+  });
+
+  // TABS
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      // re-trigger animations
+      document.querySelectorAll('#tab-' + btn.dataset.tab + ' .comp-card').forEach((card, i) => {
+        card.classList.remove('visible');
+        setTimeout(() => card.classList.add('visible'), i * 80);
+      });
+    });
+  });
+
+  // SCROLL ANIMATIONS
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // COMP CARDS
+  const cardObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const cards = entry.target.querySelectorAll('.comp-card');
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), i * 100);
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.competence-grid').forEach(g => cardObserver.observe(g));
+
+  // SKILL BARS
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-fill').forEach(fill => {
+          fill.style.width = fill.dataset.pct + '%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skills-grid').forEach(g => barObserver.observe(g));
+
+  // INIT first tab cards
+  setTimeout(() => {
+    document.querySelectorAll('#tab-bvcts .comp-card').forEach((card, i) => {
+      setTimeout(() => card.classList.add('visible'), i * 80 + 500);
+    });
+  }, 100);
+</script>
+</body>
+</html>
