@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>William Ezome Bomba — Portfolio B3 WSM</title>
+<title>Ken William Ezome Bomba | Chargé de Communication Digitale &amp; Social Media</title>
+<meta name="description" content="Portfolio B3 Webmarketing &amp; Social Media — Stratégie digitale, branding et prospection B2B. Découvrez mes réalisations en communication 360° et prospection LinkedIn.">
+<meta property="og:title" content="Ken William Ezome Bomba | Communication Digitale &amp; Social Media">
+<meta property="og:description" content="Étudiant B3 WSM passionné de stratégie digitale, branding et prospection B2B. Découvrez mes projets et réalisations.">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
@@ -57,8 +61,22 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards; }
 .hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); }
 .hero-eyebrow-text { color: var(--gold); font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 500; }
-.hero-title { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.8rem); font-weight: 400; line-height: 1.02; letter-spacing: -1px; opacity: 0; animation: fadeUp 0.7s ease 0.35s forwards; }
+.hero-title { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.8rem); font-weight: 400; line-height: 1.02; letter-spacing: -1px; opacity: 0; animation: fadeUp 0.7s ease 0.35s forwards; perspective: 800px; transform-style: preserve-3d; }
 .hero-title .gold { color: var(--gold); font-style: italic; }
+.hero-title .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) rotateX(-60deg);
+  animation: charReveal 0.6s cubic-bezier(.23,1,.32,1) forwards;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  transform-origin: bottom center;
+}
+.hero-title .gold .char {
+  text-shadow: 0 0 30px rgba(201,168,76,0.4), 0 4px 16px rgba(0,0,0,0.4);
+}
+@keyframes charReveal {
+  to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+}
 .hero-sub { margin-top: 24px; max-width: 500px; font-size: 1rem; color: var(--grey); font-weight: 300; line-height: 1.8; opacity: 0; animation: fadeUp 0.7s ease 0.5s forwards; }
 .hero-cta { margin-top: 44px; display: flex; gap: 14px; opacity: 0; animation: fadeUp 0.7s ease 0.65s forwards; }
 .btn-gold { background: var(--gold); color: #000; font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; padding: 14px 30px; border-radius: 4px; text-decoration: none; cursor: none; transition: opacity 0.2s, transform 0.2s; }
@@ -85,27 +103,45 @@ section { padding: 100px 48px; }
 
 /* 3D CARD EFFECT */
 .card-3d {
-  background: var(--bg3);
-  border: 1px solid var(--grey2);
-  border-radius: 12px;
+  background: rgba(22, 22, 30, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201,168,76,0.12);
+  border-radius: 14px;
   padding: 28px;
-  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  transition: border-color 0.4s, transform 0.4s cubic-bezier(.23,1,.32,1), box-shadow 0.4s;
   transform-style: preserve-3d;
   position: relative;
+  overflow: hidden;
 }
-.card-3d:hover {
-  border-color: var(--gold-border);
-  transform: translateY(-6px) rotateX(2deg);
-  box-shadow: 0 20px 60px rgba(201,168,76,0.08), 0 0 0 1px rgba(201,168,76,0.1);
-}
-.card-3d::before {
+.card-3d::after {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 50%);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.card-3d:hover {
+  border-color: rgba(201,168,76,0.45);
+  transform: translateY(-8px) rotateX(3deg) rotateY(1deg);
+  box-shadow:
+    0 24px 64px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(201,168,76,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 0 40px rgba(201,168,76,0.06);
+}
+.card-3d:hover::after { opacity: 1; }
+.card-3d::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
 }
 .card-3d:hover::before { opacity: 1; }
 
@@ -126,9 +162,9 @@ section { padding: 100px 48px; }
 
 /* COMP GRID */
 .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; margin-bottom: 32px; }
-.comp-card { background: var(--bg3); border: 1px solid var(--grey2); border-radius: 10px; padding: 26px; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s; }
+.comp-card { background: rgba(22, 22, 30, 0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(201,168,76,0.12); border-radius: 14px; padding: 26px; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.4s, box-shadow 0.4s; }
 .comp-card.visible { opacity: 1; transform: translateY(0); }
-.comp-card:hover { border-color: var(--gold-border); box-shadow: 0 8px 32px rgba(201,168,76,0.06); }
+.comp-card:hover { border-color: rgba(201,168,76,0.45); box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px rgba(201,168,76,0.18), inset 0 1px 0 rgba(255,255,255,0.05); }
 .comp-tag { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
 .comp-card h4 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 12px; }
 .comp-card p { color: var(--grey); font-size: 0.86rem; font-weight: 300; line-height: 1.7; }
@@ -275,10 +311,10 @@ footer span { color: var(--gold); }
       William<br>
       <span class="gold">Ezome Bomba</span>
     </h1>
-    <p class="hero-sub">Chargé de communication digitale. Né au Gabon, formé à Lille — passionné par la stratégie digitale, le branding et la prospection B2B.</p>
+    <p class="hero-sub">Étudiant en B3 Webmarketing &amp; Social Media. Je conçois des stratégies sur mesure pour amplifier la présence digitale des marques, de la prospection B2B au branding.</p>
     <div class="hero-cta">
-      <a href="#realisations" class="btn-gold">Voir mes réalisations</a>
-      <a href="#contact" class="btn-outline">Me contacter</a>
+      <a href="#realisations" class="btn-gold">Découvrir mes réalisations</a>
+      <a href="#contact" class="btn-outline">Discutons de votre projet</a>
     </div>
     <div class="hero-scroll">
       <div class="scroll-line"></div>
@@ -305,9 +341,9 @@ footer span { color: var(--gold); }
 
     <div class="bio-grid">
       <div class="fade-in">
-        <p style="color:var(--grey);margin-bottom:18px;font-weight:300;line-height:1.85;">Je m'appelle <strong style="color:var(--white)">William Ezome Bomba</strong>. <strong style="color:var(--white)">Né au Gabon</strong>, j'ai grandi dans un environnement familial marqué par l'entrepreneuriat — mon père dirigeait une entreprise spécialisée dans le marketing et les nouvelles technologies.</p>
+        <p style="color:var(--grey);margin-bottom:18px;font-weight:300;line-height:1.85;">Je m'appelle <strong style="color:var(--white)">Ken William Ezome Bomba</strong>. <strong style="color:var(--white)">Né au Gabon, formé à Lille</strong>, mon parcours m'a permis de développer une vision globale du marketing digital — forgée dans un environnement familial marqué par l'entrepreneuriat et les nouvelles technologies.</p>
         <p style="color:var(--grey);margin-bottom:18px;font-weight:300;line-height:1.85;">Mon parcours va du commerce traditionnel au digital. Aujourd'hui je me définis comme un <strong style="color:var(--white)">chargé de communication digitale</strong> — je construis les idées et je les exécute.</p>
-        <p style="color:var(--grey);margin-bottom:18px;font-weight:300;line-height:1.85;">Mon stage chez <strong style="color:var(--white)">BVCTS / Groupe Protec Structure</strong> et <strong style="color:var(--white)">QareData</strong> m'a confronté à deux réalités très différentes du marketing B2B : l'audit et le rebranding d'un groupe historique d'un côté, la prospection ultra-ciblée d'une PropTech de l'autre.</p>
+        <p style="color:var(--grey);margin-bottom:18px;font-weight:300;line-height:1.85;">J'ai piloté deux missions de stage simultanées chez <strong style="color:var(--white)">BVCTS / Groupe Protec Structure</strong> et <strong style="color:var(--white)">QareData</strong> — deux réalités complémentaires du marketing B2B : concevoir une stratégie de rebranding 360° pour un groupe historique, et déployer une campagne de prospection LinkedIn automatisée pour une PropTech en phase d'amorçage.</p>
         <p style="color:var(--gold);font-style:italic;font-family:var(--font-display);font-size:1.1rem;line-height:1.7;margin-top:24px;">"La communication n'est pas un outil auxiliaire. C'est un levier stratégique capable de transformer durablement la compétitivité d'une organisation."</p>
 
         <div class="timeline" style="margin-top:40px;">
@@ -740,7 +776,7 @@ footer span { color: var(--gold); }
         <div class="comp-card card-3d">
           <div class="comp-tag">Contexte & Enjeux</div>
           <h4 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:12px;color:var(--white);">Un paradoxe générationnel</h4>
-          <p style="color:var(--grey);line-height:1.8;">La génération Z maîtrise les usages numériques mieux que toute autre génération. Pourtant, face aux démarches administratives françaises — CAF, impôts, CROUS, mutuelle — elle se retrouve paralysée. J'ai co-fondé Simplio pour combler ce manque : une application mobile qui centralise et simplifie toutes ces démarches, avec un ton bienveillant et sans jargon.</p>
+          <p style="color:var(--grey);line-height:1.8;">La génération Z maîtrise les usages numériques, mais se retrouve paralysée face aux démarches administratives françaises — CAF, impôts, CROUS, mutuelle. J'ai co-fondé et piloté la stratégie marketing de Simplio pour combler ce manque : une application mobile qui centralise et simplifie ces démarches avec un positionnement bienveillant, un ton sans jargon, et une expérience pensée pour les 18–30 ans.</p>
           <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gold-border);">
             <p style="color:var(--grey);font-size:.85rem;">→ 30% des étudiants éligibles à la bourse CROUS ne la demandent pas<br>→ 1 étudiant sur 4 ignore qu'il peut bénéficier de l'APL<br>→ 60% des jeunes actifs méconnaissent leurs droits lors d'une transition</p>
           </div>
@@ -937,7 +973,7 @@ footer span { color: var(--gold); }
     <div class="tab-panel" id="tab-relai">
       <div class="mission-header fade-in">
         <div class="mission-tag">Product · Go-to-market · Projet personnel</div>
-        <h3 class="mission-title">CoLivo / Relai — Plateforme de livraison collaborative P2P</h3>
+        <h3 class="mission-title">Relai — Conception go-to-market d'une plateforme de livraison collaborative P2P</h3>
         <div class="mission-meta"><span>📅 2025 – 2026</span><span>🚀 Fondateur · Product designer</span><span>🎯 Le "BlaBlaCar du colis"</span></div>
       </div>
       <div class="comp-grid">
@@ -1004,7 +1040,7 @@ footer span { color: var(--gold); }
         <span class="skill-tag mastered"><span class="skill-dot gold"></span>Direction artistique</span>
         <span class="skill-tag mastered"><span class="skill-dot gold"></span>Charte graphique</span>
         <span class="skill-tag mastered"><span class="skill-dot gold"></span>Création de contenu social</span>
-        <span class="skill-tag used"><span class="skill-dot grey"></span>Community management</span>
+        <span class="skill-tag used"><span class="skill-dot grey"></span>Social Media Management</span>
         <span class="skill-tag used"><span class="skill-dot grey"></span>E-mailing ciblé</span>
       </div>
       <div style="margin-top:20px;display:flex;gap:24px;font-size:0.76rem;color:var(--grey);">
@@ -1041,7 +1077,7 @@ footer span { color: var(--gold); }
     <div class="proj-grid fade-in">
       <div>
         <p style="color:var(--grey);font-size:1rem;line-height:1.85;margin-bottom:24px;">Ce stage m'a confirmé une conviction : <strong style="color:var(--white)">la communication digitale est un levier de transformation, pas un accessoire.</strong> Elle peut reconstruire une marque, ouvrir de nouveaux marchés, changer la perception d'une organisation.</p>
-        <p style="color:var(--grey);font-size:1rem;line-height:1.85;margin-bottom:24px;">À court terme, je me positionne sur des postes de <strong style="color:var(--white)">Traffic Manager, Social Media Manager B2B ou Chargé de communication digitale</strong>.</p>
+        <p style="color:var(--grey);font-size:1rem;line-height:1.85;margin-bottom:24px;">À court terme, je me positionne sur des postes de <strong style="color:var(--white)">Traffic Manager · Social Media Manager B2B · Chargé de Communication Digitale</strong>.</p>
         <p style="color:var(--grey);font-size:1rem;line-height:1.85;">À moyen terme, mon ambition : <strong style="color:var(--white)">contribuer au développement d'une culture webmarketing structurée en Afrique subsaharienne</strong>, notamment au Gabon.</p>
       </div>
       <div>
@@ -1131,14 +1167,46 @@ footer span { color: var(--gold); }
     scene.add(new THREE.Line(lg, new THREE.LineBasicMaterial({ color: 0xC9A84C, transparent: true, opacity: 0.04 })));
   }
 
-  let mx=0, my=0;
-  document.addEventListener('mousemove', e => { mx=(e.clientX/window.innerWidth-0.5)*2; my=(e.clientY/window.innerHeight-0.5)*2; });
+  // Stocker positions originales pour l'effet magnétique
+  const origPositions = positions.slice();
+  let mx=0, my=0, mxNorm=0, myNorm=0;
+  document.addEventListener('mousemove', e => {
+    mxNorm=(e.clientX/window.innerWidth-0.5)*2;
+    myNorm=(e.clientY/window.innerHeight-0.5)*2;
+    mx=mxNorm; my=myNorm;
+  });
 
   let t=0;
+  const posArr = geo.attributes.position.array;
   function animate() {
     requestAnimationFrame(animate); t+=0.005;
-    particles.rotation.y=t*0.05; particles.rotation.x=t*0.02;
-    shapes.forEach(s => { s.rotateOnAxis(s.userData.axis,s.userData.speed); s.position.y+=Math.sin(t+s.position.x)*0.005; });
+
+    // Effet magnétique : attirer les particules proches vers la souris
+    const mouseX = mxNorm * 40;
+    const mouseY = -myNorm * 30;
+    const attractRadius = 18;
+    const attractStrength = 0.012;
+    for (let i = 0; i < count; i++) {
+      const ox = origPositions[i*3], oy = origPositions[i*3+1], oz = origPositions[i*3+2];
+      const dx = mouseX - ox, dy = mouseY - oy;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < attractRadius) {
+        const force = (1 - dist/attractRadius) * attractStrength;
+        posArr[i*3]   += (ox + dx*force*6 - posArr[i*3])   * 0.08;
+        posArr[i*3+1] += (oy + dy*force*6 - posArr[i*3+1]) * 0.08;
+      } else {
+        posArr[i*3]   += (ox - posArr[i*3])   * 0.02;
+        posArr[i*3+1] += (oy - posArr[i*3+1]) * 0.02;
+      }
+      posArr[i*3+2] += (oz - posArr[i*3+2]) * 0.02;
+    }
+    geo.attributes.position.needsUpdate = true;
+
+    // Légère rotation globale réduite (l'effet magnétique prend le dessus)
+    particles.rotation.y = t * 0.02;
+    particles.rotation.x = t * 0.008;
+
+    shapes.forEach(s => { s.rotateOnAxis(s.userData.axis, s.userData.speed); s.position.y+=Math.sin(t+s.position.x)*0.005; });
     camera.position.x+=(mx*3-camera.position.x)*0.03;
     camera.position.y+=(-my*2-camera.position.y)*0.03;
     camera.lookAt(scene.position);
@@ -1146,6 +1214,41 @@ footer span { color: var(--gold); }
   }
   animate();
   window.addEventListener('resize', () => { camera.aspect=window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth,window.innerHeight); });
+})();
+
+// HERO TITLE — split en caractères animés
+(function() {
+  const title = document.querySelector('.hero-title');
+  if (!title) return;
+  // Sauvegarder le HTML original avec les spans .gold
+  const nodes = Array.from(title.childNodes);
+  title.innerHTML = '';
+  let globalDelay = 0.5; // commence après fadeUp du titre
+  nodes.forEach(node => {
+    if (node.nodeType === 3) { // texte brut
+      const text = node.textContent;
+      text.split('').forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.style.animationDelay = globalDelay + 's';
+        span.textContent = ch === ' ' ? '\u00a0' : ch;
+        title.appendChild(span);
+        globalDelay += ch === ' ' ? 0.04 : 0.035;
+      });
+    } else if (node.nodeType === 1) { // élément (ex: .gold)
+      const wrapper = document.createElement(node.tagName);
+      wrapper.className = node.className;
+      node.textContent.split('').forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.style.animationDelay = globalDelay + 's';
+        span.textContent = ch === ' ' ? '\u00a0' : ch;
+        wrapper.appendChild(span);
+        globalDelay += ch === ' ' ? 0.04 : 0.035;
+      });
+      title.appendChild(wrapper);
+    }
+  });
 })();
 
 const cursor=document.getElementById('cursor'), halo=document.getElementById('cursor-halo');
